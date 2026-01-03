@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Kelas</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg: linear-gradient(180deg,#1a1f3c,#0b1020);
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.15);
+  --accent: #6dd5ff;
+}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;min-height:100vh;background:var(--bg);color:#fff}
+.container{padding:18px;padding-bottom:130px}
+
+/* HEADER */
+.header{text-align:center;margin-top:10px}
+.header h1{margin:0;font-size:28px}
+.header h2{margin:5px 0 15px;font-size:16px;opacity:.85}
+
+/* BANNER */
+.banner{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.banner img{width:100%;height:190px;object-fit:cover}
+.banner .welcome{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  background:rgba(0,0,0,.45);
+  font-weight:bold
+}
+.banner .welcome span{font-size:28px}
+
+/* CARDS */
+.cards{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px
+}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  backdrop-filter: blur(8px);
+  transition:.35s ease
+}
+.card:hover{transform:translateY(-5px)}
+.card i{font-size:26px;margin-bottom:10px}
+.card p{margin:6px 0;font-weight:bold}
+.card a{color:var(--accent);font-size:14px;text-decoration:none}
+
+/* PROFILE CARD (DEV + WALIKELAS) */
+.profile-box{
+  margin-top:20px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  animation:fadeUp .6s ease
+}
+.profile-box img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  margin-bottom:10px
+}
+.profile-box h3{margin:6px 0 2px}
+.profile-box p{margin:2px 0;font-size:14px;opacity:.85}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:28px;
+  left:0;
+  width:100%;
+  background:rgba(10,15,35,.9);
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:center;
+  padding:10px 0
+}
+.bottom-nav div{text-align:center;font-size:12px}
+.bottom-nav i{font-size:20px;display:block}
+
+/* COPYRIGHT */
+.copyright{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:12px;
+  padding:6px 0;
+  background:rgba(0,0,0,.6);
+  opacity:.85
+}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.35s ease;
+  z-index:999
+}
+.modal.show{opacity:1;pointer-events:auto}
+.modal-box{
+  width:90%;max-width:500px;
+  background:rgba(15,20,45,.95);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  transform:scale(.85) translateY(30px);
+  transition:.35s ease
+}
+.modal.show .modal-box{
+  transform:scale(1) translateY(0)
+}
+.close{float:right;font-size:20px;cursor:pointer}
+
+/* CHAT */
+.chat-box{
+  height:260px;
+  overflow-y:auto;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px
+}
+.chat-msg{
+  margin-bottom:6px;
+  padding:6px 8px;
+  background:var(--glass);
+  border-radius:8px
+}
+textarea{
+  width:100%;
+  margin-top:8px;
+  border:none;
+  border-radius:8px;
+  padding:8px
+}
+button{
+  margin-top:8px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:var(--accent);
+  font-weight:bold
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px
+}
+.gallery img{
+  width:100%;
+  border-radius:8px;
+  transition:.3s
+}
+.gallery img:hover{transform:scale(1.05)}
+</style>
+</head>
+
+<body>
+
+<script>
+const CONFIG={
+  kelas:"DELAPAN SATU",
+  sekolah:"MTS ALIKHLAS",
+  bannerFoto:"https://i.postimg.cc/RN3CBcfW/IMG-20260104-023142.jpg",
+  gallery:[
+    "https://i.postimg.cc/8JYtWQC5/IMG-20260104-WA0004.jpg",
+    "https://i.postimg.cc/hJQVQJH4/IMG-20260104-WA0003.jpg"
+  ],
+  instagram:"https://www.instagram.com/classeigth_alik"
+}
+</script>
+
+<div class="container">
+
+  <div class="header">
+    <h1 id="kelas"></h1>
+    <h2 id="sekolah"></h2>
+  </div>
+
+  <div class="banner">
+    <img id="banner">
+    <div class="welcome">
+      <span>WELCOME</span>
+      <small>EVERYONE</small>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card" onclick="window.open(CONFIG.instagram,'_blank')">
+      <i class="fab fa-instagram"></i>
+      <p>Instagram Kami</p>
+      <a>Kunjungi →</a>
+    </div>
+
+    <div class="card" onclick="openChat()">
+      <i class="fa fa-paper-plane"></i>
+      <p>Pesan Anonim</p>
+      <a>Mulai →</a>
+    </div>
+  </div>
+
+  <!-- WALI KELAS -->
+  <div class="profile-box">
+    <img src="https://i.postimg.cc/NKVvxMjN/IMG-20260104-033526.jpg'">
+    <h3>Lia Alawiyah, S.Sos.I</h3>
+    <p>Wali Kelas 8.1</p>
+  </div>
+
+  <!-- DEVELOPER -->
+  <div class="profile-box">
+    <img src="https://i.postimg.cc/N5gsKWW5/Snapchat-181712333.jpg">
+    <h3>Nizam Arqiansyah</h3>
+    <p>Umur 13 Tahun</p>
+    <small>Developer</small>
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <div onclick="openGallery()"><i class="fa fa-image"></i>Gallery</div>
+</div>
+
+<div class="copyright">
+  ©nzam290xx.xat ©mtsalikhlas
+</div>
+
+<!-- CHAT -->
+<div class="modal" id="chat">
+  <div class="modal-box">
+    <span class="close" onclick="closeAll()">×</span>
+    <h3>Pesan Anonim</h3>
+    <div class="chat-box" id="chatBox"></div>
+    <textarea id="chatInput" placeholder="Tulis pesan..."></textarea>
+    <button onclick="sendChat()">Kirim</button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="modal" id="gallery">
+  <div class="modal-box">
+    <span class="close" onclick="closeAll()">×</span>
+    <h3>Gallery</h3>
+    <div class="gallery" id="galleryBox"></div>
+  </div>
+</div>
+
+<script>
+kelas.innerText=CONFIG.kelas
+sekolah.innerText=CONFIG.sekolah
+banner.src=CONFIG.bannerFoto
+
+function openChat(){
+  chat.classList.add("show")
+  loadChat()
+}
+function openGallery(){
+  gallery.classList.add("show")
+  galleryBox.innerHTML=""
+  CONFIG.gallery.forEach(g=>{
+    galleryBox.innerHTML+=`<img src="${g}">`
+  })
+}
+function closeAll(){
+  chat.classList.remove("show")
+  gallery.classList.remove("show")
+}
+function loadChat(){
+  chatBox.innerHTML=""
+  let data=JSON.parse(localStorage.getItem("chat")||"[]")
+  data.forEach(m=>{
+    chatBox.innerHTML+=`<div class="chat-msg">${m}</div>`
+  })
+}
+function sendChat(){
+  let msg=chatInput.value.trim()
+  if(!msg)return
+  let data=JSON.parse(localStorage.getItem("chat")||"[]")
+  data.push(msg)
+  localStorage.setItem("chat",JSON.stringify(data))
+  chatInput.value=""
+  loadChat()
+}
+</script>
+
+</body>
+</html>
